@@ -14,7 +14,8 @@
         BEM VINDO
     </h1>
 
-    <div class="row">
+
+    <div class="row" style="color: blue">
     <div class="col-md-4"></div>
         <div class="container; col-md-4">
             <form method="POST">

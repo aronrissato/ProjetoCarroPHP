@@ -1,0 +1,24 @@
+Configurar as informações do usuário
+- git config --global user.name "Aron Rissato"
+- git config --global user.email "aron_rissato@hotmail.com"
+
+Criar um repositório local
+- git init
+
+Verificar o status do seu repositório
+- git status
+
+Verificar o log do seu repositório
+- git log
+
+Adicionar todos os arquivos para o monitoramento do git
+- git add *
+
+Criar um commit
+- git commit -m "Criação do projeto"
+
+Configurar para onde o repositório local será enviado
+- git remote add origin https://github.com/aronrissato/exemplogit.git
+
+Enviar os arquivos do último commit para o repositório remoto
+- git push -u origin master

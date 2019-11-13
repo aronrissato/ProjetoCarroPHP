@@ -10,6 +10,28 @@ function conexao()
     }
 }
 
+
+function verificarUsuario($email, $senha)
+{
+    $query = "SELECT * FROM usuario 
+    where email = :email and senha = :senha";
+    $conn = conexao();
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(":email", $email);
+    $stmt->bindParam(":senha", $senha);
+    $stmt->execute();
+
+    if ($stmt = 1) {
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        print_r($stmt->errorInfo());
+        return false;
+    }
+
+}
+
+
+
 function salvarUsuario($id, $nome, $cpf, $email, $data, $url)
 {
     $conn = conexao();

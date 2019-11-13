@@ -14,70 +14,70 @@ function conexao()
     }
 }
 
-function salvarCarro($id, $modelo, $preco, $marca, $potencia, $url)
+function salvarCarro($carroid, $modelo, $preco, $marca, $potencia, $url)
 {
     $conn = conexao();
     $stmt = "";
-    if (empty($id)) {
+    if (empty($carroid)) {
         $stmt = $conn->prepare("
-        INSERT INTO USUARIO (NOME,CPF,EMAIL,DATA,URL) VALUES 
-        (:nome,:cpf,:email,:data, :url)");
+        INSERT INTO USUARIO (MODELO,PRECO,MARCA,POTENCIA,URL) VALUES 
+        (:modelo,:preco,:marca,:potencia, :url)");
     } else {
         $stmt = $conn->prepare("
-        UPDATE USUARIO set nome=:nome, cpf=:cpf, email=:email, data=:data, url=:url 
-        WHERE id = :id
+        UPDATE USUARIO set modelo=:modelo,preco=:preco, marca=:marca, potencia=:potencia, url=:url 
+        WHERE carroid = :carroid
         ");
-        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":carroid", $carroid);
     }
 
 
-    $stmt->bindParam(":nome", $nome);
-    $stmt->bindParam(":cpf", $cpf);
-    $stmt->bindParam(":email", $email);
-    $stmt->bindParam(":data", $data);
+    $stmt->bindParam(":modelo", $modelo);
+    $stmt->bindParam(":preco", $preco);
+    $stmt->bindParam(":marca", $marca);
+    $stmt->bindParam(":potencia", $potencia);
     $stmt->bindParam(":url", $url);
     if ($stmt->execute()) {
-        return "Usuario cadastrado com sucesso.";
+        return "Carro cadastrado com sucesso.";
     } else {
         print_r($stmt->errorInfo());
-        return "Erro ao inserir o usuário";
+        return "Erro ao inserir o carro";
     }
-    //echo $nome . " " . $cpf . " " . $email . " " . $data;
+    //echo $modelo . " " . $preco . " " . $marca . " " . $potencia;
 }
 
 function listarCarro()
 {
-    $query = "SELECT id, nome, cpf, email, data, url FROM usuario";
+    $query = "SELECT carroid, modelo, preco, marca, potencia, url FROM carro";
     $conn = conexao();
     $stmt = $conn->prepare($query);
     if ($stmt->execute()) {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } else {
         print_r($stmt->errorInfo());
-        return "Erro ao inserir o usuário";
+        return "Erro ao inserir o carro";
     }
 }
 
-function ExcluirCarro($id)
+function ExcluirCarro($carroid)
 {
-    $query = "delete FROM usuario where id = :id";
+    $query = "delete FROM carro where carroid = :carroid";
     $conn = conexao();
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(":id", $id);
+    $stmt->bindParam(":carroid", $carroid);
     if ($stmt->execute()) {
-        return "Usuario excluido com sucesso!";
+        return "Carro excluido com sucesso!";
     } else {
         print_r($stmt->errorInfo());
-        return "Erro ao excluir o usuário";
+        return "Erro ao excluir o carro";
     }
 }
-function buscarCarroPorId($id)
+function buscarCarroPorId($carroid)
 {
-    $query = "SELECT id, nome, cpf, email, data, url FROM usuario 
-    where id = :id";
+    $query ="SELECT carroid, modelo, preco, marca, potencia, url FROM carro
+    where carroid = :carroid";
     $conn = conexao();
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(":id", $id);
+    $stmt->bindParam(":carroid", $carroid);
     if ($stmt->execute()) {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     } else {

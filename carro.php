@@ -3,7 +3,7 @@
 
 require_once 'funcaocarromysql.php';
 
-$id = "";
+$carro = "";
 $modelo = "";
 $preco = "";
 $marca = "";
@@ -25,10 +25,10 @@ if (!empty($_FILES)) {
 
 if (!empty($_GET)) {
   $acao = $_GET['acao'];
-  $id = $_GET['id'];
+  $carroid = $_GET['carroid'];
 
   if ($acao == 'carregar') {
-    $carro = buscarCarroPorId($id);
+    $carro = buscarCarroPorId($carroid);
     $modelo = $carro['modelo'];
     $cpf = $carro['preco'];
     $email = $carro['marca'];
@@ -38,12 +38,12 @@ if (!empty($_GET)) {
 
 
   if ($acao == 'excluir') {
-    ExcluirCarro($id)
+    ExcluirCarro($id);
   }
 }
 if (!empty($_GET)) {
   $acao = $_GET['acao'];
-  $id = $_GET['id'];
+  $carroid = $_GET['carroid'];
 
   if ($acao == 'alterar') {
     $msg =  AlterarCarro($id, $modelo, $preco, $marca, $potencia);
@@ -52,7 +52,7 @@ if (!empty($_GET)) {
 }
 
 if (!empty($_POST)) {
-  $id = $_POST['id'];
+  $carro = $_POST['carroid'];
   $modelo = $_POST['modelo'];
   $preco = $_POST['preco'];
   $marca = $_POST['marca'];
@@ -62,7 +62,7 @@ if (!empty($_POST)) {
   echo $msg;
 }
 
-$listarUsuario = listarUsuario();
+$listarCarro = listarCarro();
 
 ?>
 <html>
@@ -83,15 +83,15 @@ $listarUsuario = listarUsuario();
   </nav>
   <div class="body">
     <div class="container">
-      <h1>Faça seu cadastro abaixo:</h1>
-      <form id="form" action="cadastrorent.php" method="POST" enctype="multipart/form-data">
+      <h1>Cadastro dos carros:</h1>
+      <form id="form" action="carro.php" method="POST" enctype="multipart/form-data">
 
 
         <div class="form-row">
           <div class="col-7">
             <div class="form-group">
               <label for="id">ID: </label>
-              <input type="text" class="form-control" name="id" value="<?= $id ?>" placeholder="" readonly>
+              <input type="text" class="form-control" name="carroid" value="<?= $id ?>" placeholder="" readonly>
             </div>
             <div class="form-group">
               <label for="nome">Modelo: </label>
@@ -136,17 +136,17 @@ $listarUsuario = listarUsuario();
         </tr>
         <?php
 
-        foreach ($listarUsuario as $usuario) {
+        foreach ($listarCarro as $carro) {
 
           ?>
           <tr>
-            <td><?= $usuario['id'] ?></td>
-            <td><?= $usuario['modelo'] ?></td>
-            <td><?= $usuario['preco'] ?></td>
-            <td><?= $usuario['marca'] ?></td>
-            <td><?= $usuario['potencia'] ?></td>
-            <td><a href="cadastrorent.php?acao=carregar&id=<?= $usuario['id'] ?>">Carregar</a></td>
-            <td><a href="cadastrorent.php?acao=excluir&id=<?= $usuario['id'] ?>">Excluir</a></td>
+            <td><?= $carro['carroid'] ?></td>
+            <td><?= $carro['modelo'] ?></td>
+            <td><?= $carro['preco'] ?></td>
+            <td><?= $carro['marca'] ?></td>
+            <td><?= $carro['potencia'] ?></td>
+            <td><a href="carro.php?acao=carregar&id=<?= $carro['carroid'] ?>">Carregar</a></td>
+            <td><a href="carro.php?acao=excluir&id=<?= $carro['carroid'] ?>">Excluir</a></td>
           </tr>
         <?php
       }

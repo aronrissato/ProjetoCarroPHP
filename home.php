@@ -18,7 +18,7 @@
     <div class="row" style="color: blue">
     <div class="col-md-4"></div>
         <div class="container; col-md-4">
-            <form method="POST">
+            <form method="POST" action="login">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Endereço email</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu email">

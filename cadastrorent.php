@@ -16,7 +16,7 @@ if (!empty($_FILES)) {
 
 
   move_uploaded_file($_FILES['foto']['tmp_name'], $caminhodasimagens . $nomedoarquivo);
-  
+
 
   $url = "imagens/" . $nomedoarquivo;
 }
@@ -56,6 +56,8 @@ if (!empty($_POST)) {
   $cpf = $_POST['cpf'];
   $email = $_POST['email'];
   $data = $_POST['data'];
+
+  //$data 
 
   $msg = salvarUsuario($id, $nome, $cpf, $email, $data, $url);
   echo $msg;
@@ -148,8 +150,8 @@ $listarUsuario = listarUsuario();
             <td><a href="cadastrorent.php?acao=excluir&id=<?= $usuario['id'] ?>">Excluir</a></td>
           </tr>
         <?php
-      }
-      ?>
+        }
+        ?>
       </table>
     </div>
   </div>

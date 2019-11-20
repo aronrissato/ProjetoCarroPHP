@@ -1,0 +1,25 @@
+.header {
+    background-color: rgb(18, 18, 19);
+    text-align: center;
+    padding: 20px;
+  }
+
+  .navbar-brand{
+    font-size: 200%;
+  }
+
+  .body{
+   background-color: rgb(179, 175, 175);
+   background-repeat: no-repeat;
+   background-size: auto;
+   padding:40px
+
+  }
+
+
+  .footer {
+    background-color: rgb(18, 18, 19);
+    text-align: center;
+    padding: 20px;
+
+  }

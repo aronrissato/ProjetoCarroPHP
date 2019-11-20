@@ -1,9 +1,8 @@
-
 <?php
 
 require_once 'funcaocarromysql.php';
 
-$carro = "";
+$idcarro = "";
 $modelo = "";
 $preco = "";
 $marca = "";
@@ -17,7 +16,7 @@ if (!empty($_FILES)) {
 
 
   move_uploaded_file($_FILES['foto']['tmp_name'], $caminhodasimagens . $nomedoarquivo);
-  
+
 
   $url = "imagens/" . $nomedoarquivo;
 }
@@ -25,10 +24,10 @@ if (!empty($_FILES)) {
 
 if (!empty($_GET)) {
   $acao = $_GET['acao'];
-  $carroid = $_GET['carroid'];
+  $idcarro = $_GET['idcarro'];
 
   if ($acao == 'carregar') {
-    $carro = buscarCarroPorId($carroid);
+    $carro = buscarCarroPorId($idcarro);
     $modelo = $carro['modelo'];
     $cpf = $carro['preco'];
     $email = $carro['marca'];
@@ -38,31 +37,31 @@ if (!empty($_GET)) {
 
 
   if ($acao == 'excluir') {
-    ExcluirCarro($id);
+    ExcluirCarro($idcarro);
   }
 }
 if (!empty($_GET)) {
   $acao = $_GET['acao'];
-  $carroid = $_GET['carroid'];
+  $idcarro = $_GET['idcarro'];
 
   if ($acao == 'alterar') {
-    $msg =  AlterarCarro($id, $modelo, $preco, $marca, $potencia);
+    $msg =  AlterarCarro($idcarro, $modelo, $preco, $marca, $potencia);
     echo $msg;
   }
 }
 
 if (!empty($_POST)) {
-  $carro = $_POST['carroid'];
+  $idcarro = $_POST['idcarro'];
   $modelo = $_POST['modelo'];
   $preco = $_POST['preco'];
   $marca = $_POST['marca'];
   $potencia = $_POST['potencia'];
 
-  $msg = salvarCarro($id, $modelo, $preco, $marca, $potencia, $url);
+  $msg = salvarCarro($idcarro, $modelo, $preco, $marca, $potencia, $url);
   echo $msg;
 }
 
-$listarCarro = listarCarro();
+$listarCarro = listarCarroFuncionario();
 
 ?>
 <html>
@@ -90,16 +89,16 @@ $listarCarro = listarCarro();
         <div class="form-row">
           <div class="col-7">
             <div class="form-group">
-              <label for="id">ID: </label>
-              <input type="text" class="form-control" name="carroid" value="<?= $id ?>" placeholder="" readonly>
+              <label for="idcarro">ID: </label>
+              <input type="text" class="form-control" name="idcarro" value="<?= $idcarro ?>" placeholder="" readonly>
             </div>
             <div class="form-group">
-              <label for="nome">Modelo: </label>
-              <input type="text" class="form-control" name="modelo" value="<?= $nome ?>" placeholder="Digite o Nome">
+              <label for="modelo">Modelo: </label>
+              <input type="text" class="form-control" name="modelo" value="<?= $modelo ?>" placeholder="Digite o modelo">
             </div>
             <div class="form-group">
-              <label for="cpf">Preço: </label>
-              <input type="text" class="form-control cpf" name="preco" value="<?= $cpf ?>" placeholder="Digite o CPF">
+              <label for="preco">Preço: </label>
+              <input type="text" class="form-control" name="preco" value="<?= $preco ?>" placeholder="Digite o preço">
             </div>
           </div>
           <div class="col">
@@ -108,12 +107,12 @@ $listarCarro = listarCarro();
         </div>
 
         <div class="form-group">
-          <label for="email">Marca:</label>
-          <input type="email" class="form-control" name="marca" value="<?= $email ?>" placeholder="Digite o email">
+          <label for="marca">Marca:</label>
+          <input type="text" class="form-control" name="marca" value="<?= $marca ?>" placeholder="Digite a marca">
         </div>
         <div class="form-group">
-          <label for="data">Potencia:</label>
-          <input type="text" class="form-control date" name="potencia" value="<?= $data ?>" placeholder="dd/mm/yyyy">
+          <label for="potencia">Potencia:</label>
+          <input type="text" class="form-control" name="potencia" value="<?= $potencia ?>" placeholder="Digite a potência">
         </div>
 
 
@@ -140,17 +139,17 @@ $listarCarro = listarCarro();
 
           ?>
           <tr>
-            <td><?= $carro['carroid'] ?></td>
+            <td><?= $carro['idcarro'] ?></td>
             <td><?= $carro['modelo'] ?></td>
             <td><?= $carro['preco'] ?></td>
             <td><?= $carro['marca'] ?></td>
             <td><?= $carro['potencia'] ?></td>
-            <td><a href="carro.php?acao=carregar&id=<?= $carro['carroid'] ?>">Carregar</a></td>
-            <td><a href="carro.php?acao=excluir&id=<?= $carro['carroid'] ?>">Excluir</a></td>
+            <td><a href="carro.php?acao=carregar&idcarro=<?= $carro['idcarro'] ?>">Carregar</a></td>
+            <td><a href="carro.php?acao=excluir&idcarro=<?= $carro['idcarro'] ?>">Excluir</a></td>
           </tr>
         <?php
-      }
-      ?>
+        }
+        ?>
       </table>
     </div>
   </div>
@@ -163,7 +162,7 @@ $listarCarro = listarCarro();
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="js/jquery.mask.js"> </script>
   <script src="js/jquery.validate.js"> </script>
- 
+
 </body>
 
 </html>

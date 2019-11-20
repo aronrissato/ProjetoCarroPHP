@@ -1,3 +1,26 @@
+<?php
+
+
+require_once 'funcoesclientemysql.php';
+
+session_start();
+
+$email = '';
+$senha = '';
+
+
+if (!empty($_POST)) {
+
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    verificarUsuario($email, $senha);
+}
+
+
+
+?>
+
 <head>
     <title>Página principal</title>
     <meta charset='utf-8'>
@@ -16,22 +39,22 @@
 
 
     <div class="row" style="color: blue">
-    <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
         <div class="container; col-md-4">
-            <form method="POST" action="login">
+            <form method="POST" action="home.php">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Endereço email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite seu email">
+                    <label for="email">Endereço email</label>
+                    <input type="text" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Digite seu email">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Senha</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite sua senha">
+                    <label for="senha">Senha</label>
+                    <input type="text" name="senha" class="form-control" placeholder="Digite sua senha">
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Lembre-me</label>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary">Enviar</button>
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
                 <br>

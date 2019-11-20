@@ -3,7 +3,7 @@
 function conexao()
 {
     try {
-        $conn = new PDO("mysql:host=localhost:3306;dbname=aulaterca", "root", "");
+        $conn = new PDO("mysql:host=localhost:3306;dbname=projetocarros", "root", "");
         return $conn;
     } catch (PDOException $e) {
         echo '' . $e->getMessage();
@@ -13,21 +13,30 @@ function conexao()
 
 function verificarUsuario($email, $senha)
 {
-    $query = "SELECT * FROM usuario 
+    $query = "SELECT * FROM funcionario 
     where email = :email and senha = :senha";
     $conn = conexao();
     $stmt = $conn->prepare($query);
     $stmt->bindParam(":email", $email);
     $stmt->bindParam(":senha", $senha);
-    $stmt->execute();
 
-    if ($stmt = 1) {
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($stmt->execute()) {
+
+        $ret = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!empty($ret)) {
+            $_SESSION['email'] = $email;
+            $_SESSION['senha'] = $senha;
+            header('Location: dashboard.php');
+           
+        } else {
+            printf("Usuário e senha incorretos");
+        }
     } else {
         print_r($stmt->errorInfo());
-        return false;
+        return "ERRO SQL";
     }
-
 }
 
 

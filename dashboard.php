@@ -1,6 +1,6 @@
 <?php
 
-require_once 'funcoesmysql.php';
+require_once 'funcoesclientemysql.php';
 
 
 ?>
